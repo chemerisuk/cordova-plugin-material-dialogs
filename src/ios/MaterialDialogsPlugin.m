@@ -1,41 +1,27 @@
+#import "MaterialDialogs.h"
 #import "MaterialDialogsPlugin.h"
 
 @implementation MaterialDialogsPlugin
 
-- (void)addButton:(CDVInvokedUrlCommand *)command {
-    NSString* label = [command argumentAtIndex:0];
-
-    MDCAlertAction *alertAction =
-        [MDCAlertAction actionWithTitle:label
-                                handler:^(MDCAlertAction *action) {
-            CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-        }];
-
-    if (!self.lastActions) {
-        self.lastActions = [[NSMutableArray alloc] init];
-    }
-
-    [self.lastActions addObject:alertAction];
-}
-
 - (void)show:(CDVInvokedUrlCommand *)command {
-    NSString* message = [command argumentAtIndex:0];
-    NSString* title = [command argumentAtIndex:1];
+    NSDictionary* options = [command argumentAtIndex:0];
+    NSArray* actions = options[@"actions"];
 
     MDCAlertController *alertController =
-        [MDCAlertController alertControllerWithTitle:title
-                                         message:message];
+        [MDCAlertController alertControllerWithTitle:options[@"title"]
+                                             message:options[@"message"]];
 
-    if (self.lastActions) {
-        int count = [self.lastActions count];
-        for (int i = 0; i < count; i++) {
-           [alertController addAction:self.lastActions[i]];
-        }
+    NSArray* reversedActions = [[actions reverseObjectEnumerator] allObjects];
+    void (^actionHandler)() = ^(MDCAlertAction *action) {
+        int actionIndex = [reversedActions indexOfObject:action.title];
+        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:actionIndex];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    };
 
-        self.lastActions = nil;
-    } else {
-        [alertController addAction:[MDCAlertAction actionWithTitle:@"OK" handler:NULL]];
+    int count = [reversedActions count];
+    for (int i = 0; i < count; i++) {
+       [alertController addAction:[MDCAlertAction
+            actionWithTitle:reversedActions[i] handler:actionHandler]];
     }
 
     [self.viewController presentViewController:alertController animated:YES completion:NULL];

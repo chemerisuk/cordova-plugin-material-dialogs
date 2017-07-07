@@ -1,13 +1,29 @@
 var exec = require("cordova/exec");
 var PLUGIN_NAME = "MaterialDialogs";
 
-module.exports = {
-    addButton: function(caption, clickCallback, error) {
-        exec(clickCallback, error, PLUGIN_NAME, "addButton", [caption]);
+function MaterialDialog(message, title) {
+    this.message = message;
+    this.title = title;
+    this.actions = ["OK"];
+}
+
+MaterialDialog.prototype = {
+    setActions: function() {
+        if (arguments.length) {
+            this.actions = Array.prototype.slice.call(arguments);
+        }
 
         return this;
     },
-    show: function(message, title, success, error) {
-        exec(success, error, PLUGIN_NAME, "show", [message, title]);
+    show: function(callback) {
+        exec(success, error, PLUGIN_NAME, "show", [this]);
+
+        return this;
+    }
+};
+
+module.exports = {
+    create: function(message, title) {
+        return new MaterialDialog(message, title);
     }
 };
