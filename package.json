@@ -1,0 +1,30 @@
+{
+  "name": "cordova-plugin-material-dialogs",
+  "version": "0.1.0",
+  "description": "Cordova plugin for Material design Dialogs",
+  "cordova": {
+    "id": "cordova-plugin-material-dialogs",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chemerisuk/cordova-plugin-material-dialogs.git"
+  },
+  "author": "Maksim Chemerisuk <chemerisuk@gmail.com> (https://github.com/chemerisuk)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chemerisuk/cordova-plugin-material-dialogs/issues"
+  },
+  "homepage": "https://github.com/chemerisuk/cordova-plugin-material-dialogs#readme",
+  "keywords": [
+    "cordova",
+    "material design",
+    "dialogs",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ]
+}
