@@ -2,8 +2,8 @@ var exec = require("cordova/exec");
 var PLUGIN_NAME = "MaterialDialogs";
 
 module.exports = {
-    setButtons: function(buttons, clickCallback, error) {
-        exec(clickCallback, error, PLUGIN_NAME, "setButtons", [buttons]);
+    addButton: function(caption, clickCallback, error) {
+        exec(clickCallback, error, PLUGIN_NAME, "addButton", [caption]);
 
         return this;
     },
