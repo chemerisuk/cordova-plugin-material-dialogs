@@ -11,7 +11,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
     <issue>https://github.com/chemerisuk/cordova-plugin-material-dialogs/issues</issue>
 
     <js-module src="www/MaterialDialogs.js" name="MaterialDialogs">
-        <merges target="cordova.plugins.material.Dialogs" />
+        <merges target="cordova.plugins.material.Dialog" />
     </js-module>
 
     <engines>

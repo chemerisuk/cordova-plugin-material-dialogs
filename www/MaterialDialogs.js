@@ -1,13 +1,14 @@
 var exec = require("cordova/exec");
 var PLUGIN_NAME = "MaterialDialogs";
+var noop = function() {};
 
-function MaterialDialog(message, title) {
+function MaterialDialogBuilder(message, title) {
     this.message = message;
     this.title = title;
     this.actions = ["OK"];
 }
 
-MaterialDialog.prototype = {
+MaterialDialogBuilder.prototype = {
     setActions: function() {
         if (arguments.length) {
             this.actions = Array.prototype.slice.call(arguments);
@@ -16,7 +17,7 @@ MaterialDialog.prototype = {
         return this;
     },
     show: function(callback) {
-        exec(success, error, PLUGIN_NAME, "show", [this]);
+        exec(callback, noop, PLUGIN_NAME, "show", [this]);
 
         return this;
     }
@@ -24,6 +25,6 @@ MaterialDialog.prototype = {
 
 module.exports = {
     create: function(message, title) {
-        return new MaterialDialog(message, title);
+        return new MaterialDialogBuilder(message, title);
     }
 };
