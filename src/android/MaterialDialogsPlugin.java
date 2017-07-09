@@ -53,13 +53,6 @@ public class MaterialDialogsPlugin extends CordovaPlugin {
             }
         }
 
-        dlg.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                callbackContext.success(0);
-            }
-        });
-
         dlg.show();
     }
 }

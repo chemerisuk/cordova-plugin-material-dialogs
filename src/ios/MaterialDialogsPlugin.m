@@ -13,7 +13,7 @@
 
     NSArray* reversedActions = [[actions reverseObjectEnumerator] allObjects];
     void (^actionHandler)() = ^(MDCAlertAction *action) {
-        int actionIndex = [reversedActions indexOfObject:action.title];
+        int actionIndex = [reversedActions indexOfObject:action.title] + 1;
         CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:actionIndex];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     };
